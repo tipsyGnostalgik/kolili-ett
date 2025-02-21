@@ -1,8 +1,11 @@
 # KoLili
 Something that started as a small edit now turned into a project to make Etterna really pretty!
 
+<sub><sup>NOTE: This gif is OUTDATED</sub></sub>
+
 ![Stage selection animation.](https://i.imgur.com/6zUYS8T.gif)
--# NOTE: This gif is OUTDATED
+
+
 I still have quite the To-Do list, so please take the current pre-release not as that, but as a really small taste of what I want.
 
 ## To-do:
