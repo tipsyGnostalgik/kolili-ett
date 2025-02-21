@@ -1,11 +1,22 @@
-Refer to poco's fork for development builds of this theme.
+# KoLili
+Something that started as a small edit now turned into a project to make Etterna really pretty!
 
-https://github.com/poco0317/spawncamping-wallhack
+![Stage selection animation.](https://i.imgur.com/6zUYS8T.gif)
+
+I still have quite the To-Do list, so please take the current pre-release not as that, but as a really small taste of what I want.
+
+## To-do:
+* Fix Online functions (Really far off, HUGE priority.)
+* Revamp Music Select (Far off, High priority.)
+* Add symbols to the main theme font (Doable, Low priority.)
+* Revamp Stage Clear and Failed (Doable, High priority.)
+* Add Anti-Alias to Logo on transition (Doable, I'm just lazy.)
+* Avoid stretching on 4:3 (I don't know how I would do this.)
 
 ---
-﻿# spawncamping-wallhack
+# <a href="https://github.com/poco0317/spawncamping-wallhack">spawncamping-wallhack</a>
 A SM5 Theme ported for Etterna, a client aimed primarily for KB players.
-
+This is the theme
 Here are some old screenshots (very old)
 <a href="http://imgur.com/a/RpFvQ" target="_blank">Screenshots</a>
 
@@ -15,6 +26,15 @@ See newer screenshots here (latest versions)
 Requirements: The latest release version of Etterna. Older releases are for SM5.
 
 ---
+
+# Title Screens
+These were really fun to make, they normally shuffle but I'll add an option to choose the one you want.
+![Megaman 2 inspired title screen.](https://i.imgur.com/AjMUDk8.gif)
+![Deltarune](https://i.imgur.com/3JLDumH.gif)
+![Yume Nikki](https://i.imgur.com/2q0QsfI.gif)
+![.flow](https://i.imgur.com/CdqcJ55.gif)
+
+---
 # Acknowledgements
 ### From Prim
 * The StepMania 5 devs (notably freem and Kyzentun) for making this possible in the first place.
@@ -22,6 +42,11 @@ Requirements: The latest release version of Etterna. Older releases are for SM5.
 * Some of the theme elements are adapted from the default theme or this by jousway https://github.com/Jousway/Stepmania-Zpawn
 * Kyzentun's prefs system is used for setting various profile/theme preferences. (which is now available in _fallback for 5.1)
 
-### From Poco
+### From ![Poco's Discord Avatar](https://i.imgur.com/NqgQctR.gif)Poco
 * Everyone, I love this game
+
+### From ![My Discord Avatar.](https://i.imgur.com/EgLtsa8.gif)Xiarin/Morrigan
+* To everyone on the <a href="https://discord.gg/Nf8P8Wn7Dx">Etterna Discord</a>
+* But it more specifically includes ![Her Avatar](https://i.imgur.com/p10uMc8.png)Jole, ![Poco's Discord Avatar](https://i.imgur.com/KDnRYUs.gif)Poco and ![Her Avatar](https://i.imgur.com/rQfgPAX.png)Martzi!
+* All my friends and family.
 ---

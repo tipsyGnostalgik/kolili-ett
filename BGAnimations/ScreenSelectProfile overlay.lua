@@ -17,10 +17,10 @@ function GetLocalProfiles(pn)
 					MESSAGEMAN:Broadcast("ProfileLeftClick",{pn = pn,index = tonumber(self:GetName())})
 				end
 			},
-			LoadFont("Common Large") .. {
+			LoadFont("_176mksd 100px") .. {
 				Text=profile:GetDisplayName(),
 				InitCommand=function(self)
-					self:xy(34/2,-10):zoom(0.4):ztest(true,maxwidth,(200-34-4)/0.4)
+					self:xy(34/2,-10):zoom(0.2):ztest(true,maxwidth,(200-34-4)/0.4):diffuse(color("#a947ff"))
 				end
 			},
 			LoadFont("Common Normal") .. {
@@ -60,10 +60,10 @@ function LoadCard(cColor)
 	local t = Def.ActorFrame {
 		Def.Quad {
 			InitCommand=function(self)
-				self:zoomto(200+10,230+10)
+				self:zoomto(200+10,230+10):diffusealpha(0)
 			end,
 			OnCommand=function(self)
-				self:diffuse(getMainColor("frame")):diffusealpha(0.8)
+				self:diffuse(getMainColor("frame")):diffusealpha(0)
 			end
 		},
 		Def.Quad {
@@ -71,7 +71,7 @@ function LoadCard(cColor)
 				self:zoomto(200,230)
 			end,
 			OnCommand=function(self)
-				self:diffusealpha(0.5):diffuse(cColor)
+				self:diffuse(cColor):diffusealpha(0)
 			end
 		}
 	}
@@ -91,7 +91,7 @@ function LoadPlayerStuff(Player)
 				self:shadowlength(1)
 			end,
 			OnCommand=function(self)
-				self:diffuseshift():effectcolor1(Color('White')):effectcolor2(color("0.5,0.5,0.5"))
+				self:diffuseshift():effectcolor1(Color('White')):effectcolor2(color("0.5,0.5,0.5")):diffusealpha(0)
 			end
 		}
 	}
@@ -107,10 +107,10 @@ function LoadPlayerStuff(Player)
 		end,
 		Def.Quad {
 			InitCommand=function(self)
-				self:zoomto(200,40+2)
+				self:zoomto(100,40+2):skewx(0.1):addx(15)
 			end,
 			OnCommand=function(self)
-				self:diffusealpha(0.3)
+				self:diffuse(color("#d373ff")):diffusealpha(0.3):blend("multiply")
 			end
 		}
 	}
@@ -135,7 +135,7 @@ function LoadPlayerStuff(Player)
 	t[#t+1] = LoadFont("Common Large") .. {
 		Name = 'SelectedProfileText',
 		InitCommand=function(self)
-			self:y(160):diffuse(getMainColor("frame")):diffusealpha(0.8):zoom(0.5)
+			self:y(160):diffuse(getMainColor("frame")):diffusealpha(0):zoom(0.5)
 		end
 	}
 
@@ -267,13 +267,13 @@ t[#t+1] = Def.ActorFrame{
 		Def.ActorFrame {
 			Name = 'P1Frame',
 			InitCommand=function(self)
-				self:x(SCREEN_CENTER_X-160):y(SCREEN_CENTER_Y)
+				self:x(SCREEN_CENTER_X-250):y(SCREEN_CENTER_Y+50):halign(0):diffuse(color("#F3F3F3")):draworder(10)
 			end,
 			OnCommand=function(self)
-				self:zoom(0):bounceend(0.35):zoom(1)
+				self:zoom(3):easeOut(0.35):zoom(1):addx(-50):draworder(8)
 			end,
 			OffCommand=function(self)
-				self:bouncebegin(0.35):zoom(0)
+				self:easeOut(0.35):diffusealpha(0)
 			end,
 			PlayerJoinedMessageCommand=function(self,param)
 				if param.Player == PLAYER_1 then
@@ -301,7 +301,14 @@ t[#t+1] = Def.ActorFrame{
 	}
 }
 
-t[#t+1] = LoadActor("_frame")
+t[#t+1] = Def.Sprite{
+	Texture="etterniload.png",
+	InitCommand=function (self)
+		self:FullScreen():draworder(9)
+	end
+}
+
+--zt[#t+1] = LoadActor("_frame")
 t[#t+1] = LoadActor("_cursor")
 
 return t

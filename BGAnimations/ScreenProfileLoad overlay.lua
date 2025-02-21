@@ -1,31 +1,46 @@
 local t = Def.ActorFrame{}
 
-t[#t+1] = Def.Quad{
-	InitCommand = function(self)
-		self:diffusealpha(0)
-		self:Center()
-		self:zoomto(200,50)
-		self:smooth(1)
-		self:diffuse(getMainColor("frame"))
-		self:diffusealpha(0.8)
+t[#t+1] = Def.Sprite{
+	Texture="transition.png",
+	InitCommand=function(self)
+		self:zoom(1)
+		:SetTextureFiltering(true)
+		:draworder(3)
+		:FullScreen()
 	end
 }
 
-t[#t+1] = LoadFont("Common Normal")..{
-	Text=ScreenString("Loading Profiles"),
-	InitCommand = function(self)
-		self:Center()
-		self:zoom(0.5)
-		self:diffusealpha(0)
-		self:smooth(1)
-		self:diffusealpha(0.8)
-		self:diffuseshift()
-		self:effectcolor1(color("#FFFFFF")):effectcolor2(getMainColor("positive"))
-	end,
-	OffCommand=function(self)
-		self:linear(0.15):diffusealpha(0)
+
+t[#t+1] = Def.Quad{
+	InitCommand=function(self)
+		self:FullScreen()
+		self:diffuse(color("#a947ff"))
+		self:draworder(2)
+		self:diffusealpha(1)
 	end
 }
+
+t[#t+1] = Def.Quad{
+	InitCommand=function(self)
+		self:zoomto( SCREEN_WIDTH,5 )
+		:x(SCREEN_WIDTH/2)
+		:y((SCREEN_HEIGHT/2) + 10)
+		:diffuse(color("#a947ff"))
+		:draworder(4)
+	end
+}
+
+t[#t+1] = LoadFont("_176mksd")..{
+	InitCommand = function(self)
+		self:xy( 120,SCREEN_HEIGHT/2):draworder(4):diffuse(color("#a947ff")):diffusealpha(0):zoom(0.25)
+		self:settext("Loading Profiles...")
+	end,
+	OnCommand=function(self)
+		self:easeOut(0.25):addy(30):diffusealpha(1)
+	end
+}
+
+
 
 t[#t+1] = Def.Actor {
 	BeginCommand=function(self)

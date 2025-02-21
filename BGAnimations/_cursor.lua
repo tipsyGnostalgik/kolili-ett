@@ -33,10 +33,12 @@ for i=0,maxChild do
 	t[#t+1] = cursorClick(i)
 end
 
-t[#t+1] = Def.Quad{
+t[#t+1] = Def.Sprite{
+	Texture=THEME:GetPathG("","_cursor"),
 	Name="Cursor",
 	InitCommand=function(self)
-		self:xy(0,0):zoomto(4,4):rotationz(45)
+		self:halign(0):valign(0):xy(0,0)
+		self:SetTextureFiltering(false)
 	end,
 	MouseLeftClickMessageCommand=function(self)
 		curIndex = (curIndex+1)%20
