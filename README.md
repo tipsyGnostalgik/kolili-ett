@@ -2,11 +2,11 @@
 Something that started as a small edit now turned into a project to make Etterna really pretty!
 
 ![Stage selection animation.](https://i.imgur.com/6zUYS8T.gif)
-
+-# NOTE: This gif is OUTDATED
 I still have quite the To-Do list, so please take the current pre-release not as that, but as a really small taste of what I want.
 
 ## To-do:
-* Fix Online functions (Really far off, HUGE priority.)
+* ~~Fix Online functions (Really far off, HUGE priority.)~~ I downloaded the wrong SCWH version accidentally but i'll keep this to remind everyone i'm a FUCKING IDIOT
 * Revamp Music Select (Far off, High priority.)
 * Add symbols to the main theme font (Doable, Low priority.)
 * Revamp Stage Clear and Failed (Doable, High priority.)
@@ -47,6 +47,7 @@ These were really fun to make, they normally shuffle but I'll add an option to c
 
 ### From ![My Discord Avatar.](https://i.imgur.com/EgLtsa8.gif)Xiarin/Morrigan
 * To everyone on the <a href="https://discord.gg/Nf8P8Wn7Dx">Etterna Discord</a>
-* But it more specifically includes ![Her Avatar](https://i.imgur.com/p10uMc8.png)Jole, ![Poco's Discord Avatar](https://i.imgur.com/KDnRYUs.gif)Poco and ![Her Avatar](https://i.imgur.com/rQfgPAX.png)Martzi!
+* But it more specifically includes ![Poco's Discord Avatar](https://i.imgur.com/KDnRYUs.gif)Poco and ![Her Avatar](https://i.imgur.com/rQfgPAX.png)Martzi!
+* ![Her Avatar](https://i.imgur.com/p10uMc8.png)Jole for letting me borrow code from her <a href="https://github.com/joleskins/etternamax-respect-v/tree/master">DJMAX Respect V Theme</a>
 * All my friends and family.
 ---
