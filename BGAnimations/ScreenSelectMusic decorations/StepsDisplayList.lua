@@ -159,13 +159,14 @@ local t = Def.ActorFrame
 			CurrentStepsChangedMessageCommand = function(self)
 			local steps = GAMESTATE:GetCurrentSteps()
 			local meter = steps:GetMSD(getCurRateValue(), 1)
-				self:settextf("%0.2f",meter or " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
+
+			self:settextf(song and "%0.2f",meter or " "):diffuse(getMSDColor(meter))
 			end,
 			
 			CurrentRateChangedMessageCommand = function(self)
 				local steps = GAMESTATE:GetCurrentSteps()
 				local meter = steps:GetMSD(getCurRateValue(), 1)
-					self:settextf("%0.2f",meter or " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
+					self:settextf(song and "%0.2f",meter or " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
 				end
 		},
 
@@ -206,6 +207,55 @@ local t = Def.ActorFrame
 				else				
 					self:settextf(getCurRate " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
 				end
+			end,
+
+			CurrentStepsChangedMessageCommand = function(self)
+				local steps = GAMESTATE:GetCurrentSteps()
+				local meter = steps:GetMSD(getCurRateValue(), 1)
+				if getCurRate() == "1.0x" then
+					self:settextf(" "):diffusealpha(0) 
+				else				
+					self:settextf(getCurRate " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
+				end
+			end
+		},
+
+		LoadFont("_176menuksd") ..
+		{
+			Name = "Msd Stars Shade",
+			
+			InitCommand = function(self)
+				self:xy(151.5-232/2 + 4, 196-200/2+16+24 + 101):halign(0):valign(0.5)
+				self:zoom(0.25)
+				self:diffuse(color("#0c0c0c")):diffusealpha(0.8)
+				self:settext("żżżżżżżżż")
+			end
+		},
+
+		LoadFont("_176menuksd") ..
+		{
+			Name = "Msd Stars",
+			
+			InitCommand = function(self)
+				self:xy(151.5-232/2 + 4, 196-200/2+16+24 + 101):halign(0):valign(0.5)
+				self:zoom(0.25)
+				self:diffuse(color("#dddddd")):diffusealpha(1)
+				self:settext("żżżżżżżżż")
+			end,
+			CurrentStepsChangedMessageCommand = function(self)
+				local steps = GAMESTATE:GetCurrentSteps()
+				local meter = steps:GetMSD(getCurRateValue(), 1)
+				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
+				
+
+				self:settext(song and "żżżżżżżżż" or ""):diffuse(getMSDColor(meter))
+				--self:settext(floormeter):diffuse(getMSDColor(meter))
+			end,
+			CurrentRateChangedMessageCommand = function (self)
+				local steps = GAMESTATE:GetCurrentSteps()
+				local meter = steps:GetMSD(getCurRateValue(), 1)
+
+				self:settext(song and "żżżżżżżżż" or ""):diffuse(getMSDColor(meter))
 			end
 		}
 }
