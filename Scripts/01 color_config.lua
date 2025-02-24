@@ -2,6 +2,7 @@ local defaultConfig = {
 
 	main = {
 		frame = "#000000",
+		frames = "#000000",
 		highlight = "#00AEEF",
 		background = "#CCCCEE",
 		underlay = "#CCCCEE",

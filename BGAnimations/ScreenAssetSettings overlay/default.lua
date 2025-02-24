@@ -7,6 +7,7 @@ local assetTypes = {
 	"toasty",
 	"avatar",
 	"judgment",
+	"PlayerCard"
 }
 
 local maxPage = 1
@@ -129,6 +130,8 @@ local function confirmPick() -- select the asset in the current index for use in
 	MESSAGEMAN:Broadcast("PickChanged")
 	if type == "avatar" then
 		MESSAGEMAN:Broadcast("AvatarChanged")
+	elseif type == "PlayerCard" then
+		MESSAGEMAN:Broadcast("CardChanged")
 	end
 end
 
@@ -317,6 +320,18 @@ local function topRow()
 			self:zoomto(30,30)
 		end
 	}
+	t[#t+1] = Def.Sprite {
+		InitCommand = function (self) 
+			self:x(-frameWidth/2 + 5+30)
+			self:halign(0)
+			self:Load(getCardPath(PLAYER_1))
+			self:zoomto(134,30)
+		end,
+		CardChangedMessageCommand = function(self)
+			self:Load(getCardPath(PLAYER_1))
+			self:zoomto(134,30)
+		end
+	}
 
 	t[#t+1] = LoadFont("Common BLarge") .. {
 		InitCommand = function(self)
@@ -455,8 +470,12 @@ local function assetBox(i)
 
 					if curType == 3 then
 						assetWidth = judgmentWidth
+					elseif curType == 4 then
+						assetWidth = 132
+						assetHeight = 30
 					else
 						assetWidth = squareWidth
+						assetHeight = squareWidth
 					end
 
 					-- Load the asset image

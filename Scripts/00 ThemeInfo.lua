@@ -1,8 +1,8 @@
 -- theme identification file
 
 themeInfo = {
-	Name = "spawncamping-wallhack (etterna .74.0)",
-	Version = "2.2.8", -- a.b.c, a for complete overhauls, b for major releases, c for minor additions/bugfix.
+	Name = "Kolili (etterna 0.74.0)",
+	Version = "0.1.2", -- a.b.c, a for complete overhauls, b for major releases, c for minor additions/bugfix.
 	Date = "20241225",
 }
 

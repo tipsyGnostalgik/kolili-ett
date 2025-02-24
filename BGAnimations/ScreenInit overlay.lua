@@ -172,8 +172,9 @@ local xiarin = {
 	"Thanks to everyone on the Discord",
 	"Trans Rights are Human Rights.",
 	"Quaver Drools Etterna Rules!",
-	"weeeeeeeeena superman superman supermandoniao",
+	"Theme by Morrigan",
 	"Please act like this text is scary.",
+	"I will not pull back, I will push forward, like a centipede.",
 	"Can we VC and play Don't Starve Together?",
 	"I like Mega Man.",
 	"I like Rock Man." 
@@ -191,6 +192,7 @@ t = Def.ActorFrame{}
 	t[#t+1] = LoadFont("_kon system") .. {
 	    InitCommand=function(self)
 		    self:settext(xiarin[math.random(#xiarin)]):zoom(0.3):xy(SCREEN_WIDTH/2,(SCREEN_HEIGHT/2) + 40):draworder(3):smooth(1)
+		    --self:settext(xiarin[8]):zoom(0.3):xy(SCREEN_WIDTH/2,(SCREEN_HEIGHT/2) + 40):draworder(3):smooth(1)
 	    end
     }
 

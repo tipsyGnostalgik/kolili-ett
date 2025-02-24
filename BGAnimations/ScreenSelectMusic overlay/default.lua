@@ -1,95 +1,76 @@
-local pn = GAMESTATE:GetEnabledPlayers()[1]
-local profile = GetPlayerOrMachineProfile(pn)
+local showVisualizer = true
 
-local user = playerConfig:get_data(pn_to_profile_slot(pn)).Username
-local pass = playerConfig:get_data(pn_to_profile_slot(pn)).Password
-if isAutoLogin() then
-	DLMAN:LoginWithToken(user, pass)
+local function input(event)
+	if event.DeviceInput.button == "DeviceButton_left mouse button" and event.type == "InputEventType_Release" then
+	elseif event.DeviceInput.button == "DeviceButton_right mouse button" and event.type == "InputEventType_Release" then
+	end
+	return false
 end
 
+local function highlight(self)
+	self:GetChild("rando"):queuecommand("Highlight")
+end
 
-local screenChoices = {
-	ScreenNetSelectMusic = true,
-	ScreenSelectMusic = true,
+local function highlightIfOver(self)
+	if isOver(self) then
+		self:diffusealpha(0.6)
+	else
+		self:diffusealpha(0.2)
+	end
+end
+
+local t =
+	Def.ActorFrame {
+	BeginCommand = function(self)
+		self:SetUpdateFunction(highlight)
+		self:SetUpdateFunctionInterval(0.025)
+		local s = SCREENMAN:GetTopScreen()
+		s:AddInputCallback(input)
+	end
 }
 
-local replayScore
-local isEval
-
-local t = Def.ActorFrame{
-	LoginFailedMessageCommand = function(self)
-		SCREENMAN:SystemMessage("Login Failed!")
-	end,
-
-	LoginMessageCommand=function(self)
-		SCREENMAN:SystemMessage("Login Successful!")
-		GHETTOGAMESTATE:setOnlineStatus("Online")
-	end,
-
-	LogOutMessageCommand=function(self)
-		SCREENMAN:SystemMessage("Logged Out!")
-		GHETTOGAMESTATE:setOnlineStatus("Local")
-	end,
-
-	TriggerReplayBeginMessageCommand = function(self, params)
-		replayScore = params.score
-		isEval = params.isEval
-		self:sleep(0.1)
-		self:queuecommand("DelayedReplayBegin")
-	end,
-
-	DelayedReplayBeginCommand = function(self)
-		if isEval then
-			SCREENMAN:GetTopScreen():ShowEvalScreenForScore(replayScore)
-		else
-			SCREENMAN:GetTopScreen():PlayReplay(replayScore)
+t[#t + 1] =
+	Def.Actor {
+	CodeMessageCommand = function(self, params)
+		if params.Name == "AvatarShow" and getTabIndex() == 0 and not SCREENMAN:get_input_redirected(PLAYER_1) then
+			SCREENMAN:SetNewScreen("ScreenAssetSettings")
 		end
-	end,
-	CurrentSongChangedMessageCommand = function(self)
-		if profile:IsCurrentChartPermamirror() then
-			local modslevel = "ModsLevel_Preferred"
-			local playeroptions = GAMESTATE:GetPlayerState():GetPlayerOptions(modslevel)
-			playeroptions:Mirror(false)
-		end
-	end,
+	end
+}
 
-	PlayingSampleMusicMessageCommand = function(self)
-		local leaderboardEnabled =
-			playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).leaderboardEnabled and DLMAN:IsLoggedIn()
-		if leaderboardEnabled and GAMESTATE:GetCurrentSteps() then
-			local chartkey = GAMESTATE:GetCurrentSteps():GetChartKey()
-			if screenChoices[SCREENMAN:GetTopScreen():GetName()] then
-				if SCREENMAN:GetTopScreen():GetMusicWheel():IsSettled() then
-					DLMAN:RequestChartLeaderBoardFromOnline(
-						chartkey,
-						function(leaderboard)
-						end
-					)
-				end
+t[#t + 1] = LoadActor("../_djframe")
+t[#t + 1] = LoadActor("../_PlayerInfo")
+
+
+t[#t + 1] = LoadActor("currentsort")
+t[#t + 1] =
+	LoadFont("Common Normal") ..
+	{
+		Name="rando",
+		InitCommand = function(self)
+			self:xy(75, 22):halign(0):valign(1):zoom(0.35):diffuse(getMainColor("positive")):diffusealpha(0.2)
+			self:settext("SONG SELECT")
+		end,
+		HighlightCommand=function(self)
+			highlightIfOver(self)
+		end,
+		MouseLeftClickMessageCommand = function(self)
+			if isOver(self) then
+				local t = SONGMAN:GetAllSongs()
+				local random_song = t[math.random(#t)]
+				SCREENMAN:GetTopScreen():GetMusicWheel():SelectSong(random_song)
 			end
 		end
-	end
-}
+	}
 
+t[#t + 1] = LoadActor("../_mouse")
+t[#t + 1] = LoadActor("../_halppls")
+t[#t + 1] = LoadActor("currenttime")
 
-t[#t+1] = Def.Quad{
-	InitCommand=function(self)
-		self:y(SCREEN_HEIGHT):halign(0):valign(1):zoomto(SCREEN_WIDTH,200):diffuse(getMainColor("background")):fadetop(1)
-	end
-}
+GAMESTATE:UpdateDiscordMenu(
+	GetPlayerOrMachineProfile(PLAYER_1):GetDisplayName() ..
+		": " .. string.format("%5.2f", GetPlayerOrMachineProfile(PLAYER_1):GetPlayerRating())
+)
 
-
-t[#t+1] = LoadActor("../_frame")
-
-t[#t+1] = LoadActor("profilecard")
-t[#t+1] = LoadActor("tabs")
-t[#t+1] = LoadActor("currentsort")
-t[#t+1] = StandardDecorationFromFileOptional("BPMDisplay","BPMDisplay")
-t[#t+1] = StandardDecorationFromFileOptional("BPMLabel","BPMLabel")
-t[#t+1] = LoadActor("../_cursor")
-t[#t+1] = LoadActor("bgm")
-
-local largeImageText = string.format("%s: %5.2f",profile:GetDisplayName(), profile:GetPlayerRating())
-GAMESTATE:UpdateDiscordMenu(largeImageText)
-
+File.Write("nowplaying.txt", " ")
 return t

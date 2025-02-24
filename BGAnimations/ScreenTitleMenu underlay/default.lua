@@ -43,7 +43,7 @@ local menuscreenslol = {
 }
 
 t[#t+1] = LoadActor(menuscreenslol[math.random(#menuscreenslol)])
---t[#t+1] = LoadActor("drn")
+--t[#t+1] = LoadActor("dflow")
 
 t[#t+1] = LoadFont("Common Normal") .. {
 	InitCommand=function(self)
@@ -175,7 +175,7 @@ t[#t+1] = Def.Quad {
 	end
 }
 
-t[#t+1] = LoadFont("_176mksd") .. {
+t[#t+1] = LoadFont("_176menuksd") .. {
 	InitCommand=function(self)
 		self:settext(profile:GetDisplayName()):zoom(0.4):xy(SCREEN_WIDTH,SCREEN_HEIGHT-50):draworder(-2):halign(1)
 	end,

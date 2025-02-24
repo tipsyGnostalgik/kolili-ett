@@ -137,7 +137,6 @@ t[#t+1] = Def.Sprite{
             :easeIn(0.5)
             :zoom(110)
             :diffusealpha(1)
-            :stopTweening(0.1)
             :diffusealpha(0)
     end
 }

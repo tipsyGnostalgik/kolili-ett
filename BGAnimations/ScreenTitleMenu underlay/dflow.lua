@@ -47,7 +47,7 @@ t[#t+1] = Def.Sprite{
 		self:sleep(0.3)
 		self:decelerate(0.3)
 		self:diffusealpha(1)
-		self:x(SCREEN_WIDTH/5)
+		self:x(SCREEN_CENTER_X-(SCREEN_WIDTH/4))
 		self:zoom(0.5)
 	end
 }
@@ -62,7 +62,7 @@ t[#t+1] = Def.Sprite{
 		self:sleep(0.3)
 		self:decelerate(0.3)
 		self:diffusealpha(1)
-		self:x(SCREEN_WIDTH/5)
+		self:x(SCREEN_CENTER_X-(SCREEN_WIDTH/4))
 		self:zoom(0.5)
 	end
 }

@@ -1,58 +1,103 @@
-local t = Def.ActorFrame{}
-t[#t+1] = LoadActor("songinfo")
+local t = Def.ActorFrame {}
 
-t[#t+1] = Def.ActorFrame {
-	InitCommand=function(self)
-		self:rotationz(-90):xy(SCREEN_CENTER_X/2-WideScale(get43size(150),150),270)
-		self:delayedFadeIn(5)
-	end,
-	OffCommand=function(self)
-		self:stoptweening()
-		self:sleep(0.025)
-		self:smooth(0.2)
-		self:diffusealpha(0) 
-	end,
+t[#t + 1] = LoadActor("tabs")
+t[#t + 1] = LoadActor("wifetwirl")
+t[#t + 1] = LoadActor("msd")
+t[#t + 1] = LoadActor("songsearch")
+t[#t + 1] = LoadActor("score")
+t[#t + 1] = LoadActor("profile")
+t[#t + 1] = LoadActor("filter")
+t[#t + 1] = LoadActor("goaltracker")
+t[#t + 1] = LoadActor("playlists")
+t[#t + 1] = LoadActor("downloads")
+t[#t + 1] = LoadActor("tags")
 
-	OnCommand=function(self)
-		wheel = SCREENMAN:GetTopScreen():GetMusicWheel()
+local itsOn = true
+
+local stepsdisplayx = SCREEN_WIDTH * 0.56 - capWideScale(48, 56)
+
+t[#t+1] = LoadActor("StepsDisplayList")
+	--[[Def.ActorFrame {
+	Name = "StepsDisplay",
+	InitCommand = function(self)
+		self:xy(stepsdisplayx, 70):valign(0)
 	end,
-	CurrentSongChangedMessageCommand=function(self)
-		self:playcommand("PositionSet")
+	OffCommand = function(self)
+		self:visible(false)
+	end,
+	OnCommand = function(self)
+		self:visible(true)
+	end,
+	TabChangedMessageCommand = function(self)
+		self:finishtweening()
+		if getTabIndex() < 3 and GAMESTATE:GetCurrentSong() then
+			self:playcommand("On")
+		else
+			self:playcommand("Off")
+		end
+	end,
+	CurrentSongChangedMessageCommand = function(self)
+		local song = GAMESTATE:GetCurrentSong()
+		if song and getTabIndex() < 3 then
+			self:playcommand("On")
+		elseif not song then
+			self:playcommand("Off")
+		end
+	end,
+	DelayedChartUpdateMessageCommand = function(self)
+		local leaderboardEnabled =
+			playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).leaderboardEnabled and DLMAN:IsLoggedIn()
+		if leaderboardEnabled and GAMESTATE:GetCurrentSteps(PLAYER_1) then
+			local chartkey = GAMESTATE:GetCurrentSteps(PLAYER_1):GetChartKey()
+			if SCREENMAN:GetTopScreen():GetMusicWheel():IsSettled() then
+				DLMAN:RequestChartLeaderBoardFromOnline(
+					chartkey,
+					function(leaderboard)
+					end
+				)
+			end
+		end
+	end,
+	ChartPreviewOnMessageCommand = function(self)
+		if not itsOn then
+			self:addx(capWideScale(12, 0)):addy(capWideScale(18, 0))
+			itsOn = true
+		end
+	end,
+	ChartPreviewOffMessageCommand = function(self)
+		if itsOn then
+			self:addx(capWideScale(-12, 0)):addy(capWideScale(-18, 0))
+			itsOn = false
+		end
 	end,
 	Def.StepsDisplayList {
-		Name="StepsDisplayListRow",
+		Name = "StepsDisplayListRow",
 		CursorP1 = Def.ActorFrame {
-			InitCommand=function(self)
-				self:player(PLAYER_1):rotationz(90):diffusealpha(0.6)
+			InitCommand = function(self)
+				self:player(PLAYER_1)
 			end,
-			PlayerJoinedMessageCommand=function(self, params)
-				if params.Player == PLAYER_1 then
-					self:visible(true)
-					self:zoom(0):bounceend(1):zoom(1)
-				end
-			end,
-			PlayerUnjoinedMessageCommand=function(self, params)
-				if params.Player == PLAYER_1 then
-					self:visible(true)
-					self:zoom(0):bounceend(1):zoom(1)
-				end
-			end,
-			Def.Quad{
-				InitCommand=function(self)
-					self:zoomto(65,65):diffuseshift():effectperiod(1):effectcolor1(Alpha(PlayerColor(PLAYER_1), 0.5)):effectcolor2(PlayerColor(PLAYER_1))
+			Def.Quad {
+				InitCommand = function(self)
+					self:x(54):zoomto(6, 20):halign(1):valign(0.5)
+				end,
+				BeginCommand = function(self)
+					self:queuecommand("Set")
+				end,
+				SetCommand = function(self)
+					self:zoomy(20)
 				end
 			}
 		},
-		CursorP2 = Def.ActorFrame {
-		},
-		CursorP1Frame = Def.Actor{
-			ChangeCommand=function(self)
-				self:stoptweening():easeOut(0.5)
+		CursorP2 = Def.ActorFrame {},
+		CursorP1Frame = Def.Actor {
+			ChangeCommand = function(self)
+				self:stoptweening():decelerate(0.05)
 			end
 		},
-		CursorP2Frame = Def.Actor{
-		}
+		CursorP2Frame = Def.Actor {}
 	}
-}
+}]]
 
+t[#t + 1] = LoadActor("../_wheelmouse")
+collectgarbage()
 return t

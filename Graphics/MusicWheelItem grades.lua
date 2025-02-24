@@ -1,53 +1,55 @@
-return Def.ActorFrame{
-	LoadFont("Common Bold") .. {
-		InitCommand=function(self)
-			self:xy(16,-1):zoom(0.5):maxwidth(WideScale(get43size(20),20)/0.5)
+return Def.ActorFrame {
+	Def.Quad {
+		InitCommand = function(self)
+			self:xy(2, -2):zoomto(4, 19)
 		end,
-		SetGradeCommand=function(self,params)
-			local player = params.PlayerNumber
-				local song = params.Song
-				local sGrade = params.Grade or 'Grade_None'
-				self:valign(0.5)
-				self:settext(THEME:GetString("Grade",ToEnumShortString(sGrade)) or "")
-				self:diffuse(getGradeColor(sGrade))
+		SetGradeCommand = function(self, params)
+			if params.HasGoal then
+				self:diffuse(byJudgment("TapNoteScore_Miss"))
+				self:diffusealpha(1)
+			else
+				self:diffusealpha(0)
+			end
 		end
 	},
-	Def.Quad{
-		InitCommand= function(self) 
-			self:x(30)
-			self:zoomto(2,32)
-			self:halign(0)
-			self:diffuse(color(colorConfig:get_data().selectMusic.MusicWheelDivider))
-		end,
-
-		BeginCommand = function(self) self:queuecommand('Set') end,
-		OffCommand = function(self) self:visible(false) end,
-		SetCommand = function(self, params)
-			if params.Song then
-				local goalType = GHETTOGAMESTATE:getLowestGoalTypeBySong(params.Song)
-				if goalType == 0 then -- No goals
-					self:diffusebottomedge(color(colorConfig:get_data().selectMusic.MusicWheelDivider))
-				elseif goalType == 1 then -- Unfinished goals
-					self:diffusebottomedge(color(colorConfig:get_data().selectMusic.UnfinishedGoalGradient))
-				elseif goalType == 2 then -- All goals are finished
-					self:diffusebottomedge(color(colorConfig:get_data().selectMusic.CompletedGoalGradient))
+	LoadFont("Common Normal") ..
+		{
+			InitCommand = function(self)
+				self:xy(400, 0):zoom(0.5)
+			end,
+			SetGradeCommand = function(self, params)
+				local sGrade = params.Grade or "Grade_None"
+				self:halign(1):valign(0.5)
+				self:settext(THEME:GetString("Grade", ToEnumShortString(sGrade)) or "")
+				self:diffuse(getGradeColor(sGrade))
+			end
+		},
+		Def.Sprite {
+			InitCommand = function(self)
+				self:xy(-9, -15):zoomto(4, 19)
+			end,
+			SetGradeCommand = function(self, params)
+				if params.PermaMirror then
+					self:Load(THEME:GetPathG("", "mirror"))
+					self:zoomto(20, 20)
+					self:visible(true)
+				else
+					self:visible(false)
 				end
 			end
-		end
-	},
-	LoadActor("mirror") .. {
-		InitCommand = function(self)
-			self:xy(3,16)
-			self:zoom(0.2)
-			self:wag()
-			self:diffuse(Color.Blue)
-		end,
-		SetGradeCommand = function(self,params)
-			self:visible(false)
-			if params.PermaMirror then
-				self:visible(true)
+		},
+		Def.Sprite {
+			InitCommand = function(self)
+				self:xy(1, -15):zoomto(4, 19)
+			end,
+			SetGradeCommand = function(self, params)
+				if params.Favorited then
+					self:Load(THEME:GetPathG("", "favorite"))
+					self:zoomto(16, 16)
+					self:visible(true)
+				else
+					self:visible(false)
+				end
 			end
-		end
-	}
-	
+		},
 }

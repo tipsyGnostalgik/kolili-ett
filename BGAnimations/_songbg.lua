@@ -105,4 +105,20 @@ if moveBG then
 	end
 end
 
+t[#t + 1] =
+			Def.Sprite {
+				Texture = THEME:GetPathG("","SongBackgroundGradient");
+				InitCommand = function(self)
+					self:xy(0,0):halign(0):valign(0):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT):diffusealpha(0)
+				end
+}
+
+t[#t + 1] =
+			Def.Sprite {
+				Texture = THEME:GetPathG("","LineGradient");
+				InitCommand = function(self)
+					self:xy(0,0):halign(0):valign(0):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT):diffusealpha(0.5)
+				end
+			}
+
 return t

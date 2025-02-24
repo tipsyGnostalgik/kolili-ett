@@ -1,58 +1,88 @@
-local MAX_WIDTH = SCREEN_WIDTH*2/3
+-- Tabs are 0 indexed
+local tabIndex = 0
+local tabSize = 9
+local availTabSize = 2
 
-TAB = {
-	choices = {},
-	width = 100,
-	height = 20
-}
+local availableTabs1P = {true, true, true, true, true, true, true, true, true, true}
+local availableTabs2P = {true, false, false, false, true}
 
-function TAB.new(self, choices)
-	TAB.choices = choices
-	TAB.width = math.min(100, SCREEN_WIDTH*2/3 / #choices)
-
-	return self
+--0 indexed tabs... yet 1 indexed lua tables mfw. Will probably go into infinite loop if everything is false.
+-- Recursively grabs the next available tab. Looping around to start if needed.
+local function getNextAvailable(players, index)
+	local table = {}
+	if players == 1 then
+		table = availableTabs1P
+	else
+		table = availableTabs2P
+	end
+	if table[index + 1] == true then
+		return index
+	else
+		return getNextAvailable(players, (index + 1) % tabSize)
+	end
 end
 
-function TAB.makeTabActors(tab)
-	local t = Def.ActorFrame{}
+-- Resets the index of the tabs to 0
+function resetTabIndex()
+	tabIndex = 0
+end
 
-	for i,v in pairs(tab.choices) do
-		t[#t+1] = Def.Quad {
-			InitCommand = function(self)
-				self:halign(0)
-				self:zoomto(tab.width, tab.height)
-				self:x(tab.width*(i-1))
-				self:diffuse(getMainColor("tabFrame"))
-			end,
-			MouseDownCommand = function(self, params)
-				MESSAGEMAN:Broadcast("TabPressed",{name = v, params = params})
-			end
-		}
-
-		t[#t+1] = quadButton(3, 1)..{
-		InitCommand = function(self)
-			self:halign(0)
-			self:zoomto(tab.width, tab.height)
-			self:x(tab.width*(i-1))
-			self:diffuse(getMainColor("tabButton")):diffusealpha(0)
-		end,
-		MouseDownCommand = function(self, params)
-			MESSAGEMAN:Broadcast("TabPressed",{name = v, params = params})
-			self:finishtweening()
-			self:diffusealpha(0.2)
-			self:smooth(0.3)
-			self:diffusealpha(0)
+function setTabIndex(index)
+	if GAMESTATE:GetNumPlayersEnabled() == 1 then
+		if availableTabs1P[index + 1] then
+			tabIndex = index
 		end
-	}
-
-		t[#t+1] = LoadFont("Common Bold") .. {
-			InitCommand = function(self)
-				self:x((tab.width/2)+(tab.width*(i-1)))
-				self:zoom(0.4)
-				self:settext(v)
-			end
-		}
+	else
+		if availableTabs2P[index + 1] then
+			tabIndex = index
+		end
 	end
+end
 
-	return t
+-- Incements the tab index by 1 given the tab is available.
+function incrementTabIndex()
+	local players = GAMESTATE:GetNumPlayersEnabled()
+	tabIndex = (tabIndex + 1) % tabSize
+	if players == 1 and availableTabs1P[tabIndex + 1] == false then
+		tabIndex = getNextAvailable(players, tabIndex + 1) % tabSize
+	end
+	if players > 1 and availableTabs2P[tabIndex + 1] == false then
+		tabIndex = getNextAvailable(players, tabIndex + 1) % tabSize
+	end
+end
+
+-- Returns the current tab index
+function getTabIndex()
+	return tabIndex
+end
+
+-- Returns the total number of tabs
+function getTabSize()
+	return tabSize
+end
+
+-- Returns the highest index out of all available tabs
+function getMaxAvailIndex()
+	local high = 0
+	local table = 0
+	if GAMESTATE:GetNumPlayersEnabled() == 1 then
+		table = availableTabs1P
+	else
+		table = availableTabs2P
+	end
+	for k, v in ipairs(table) do
+		if v == true then
+			high = math.max(high, k)
+		end
+	end
+	return high
+end
+
+-- Returns whether a certain tab is enabled
+function isTabEnabled(index)
+	if GAMESTATE:GetNumPlayersEnabled() == 1 then
+		return availableTabs1P[index]
+	else
+		return availableTabs2P[index]
+	end
 end

@@ -6,6 +6,34 @@ function GetLocalProfiles(pn)
 		local profile=PROFILEMAN:GetLocalProfileFromIndex(p)
 		local ProfileCard = Def.ActorFrame {
 
+			Def.Sprite {
+				InitCommand=function(self)
+					self:visible(true):halign(0):xy(-98,-2):ztest(true)
+				end,
+				BeginCommand=function(self)
+					self:queuecommand("ModifyCard")
+				end,
+				ModifyCardCommand=function(self)
+					self:finishtweening()
+					self:Load(getAssetPathFromProfileID("PlayerCard", profileID))
+					self:zoom(0.3):addx(30):addy(3)
+				end	
+			},
+
+			Def.Sprite {
+				InitCommand=function(self)
+					self:visible(true):halign(0):xy(-98,-2):ztest(true)
+				end,
+				BeginCommand=function(self)
+					self:queuecommand("ModifyCard")
+				end,
+				ModifyCardCommand=function(self)
+					self:finishtweening()
+					self:Load(THEME:GetPathG("", "profgrad"))
+					self:zoom(0.3):addx(30):addy(3)
+				end	
+			},
+
 			quadButton(1) ..{
 				InitCommand = function(self)
 					self:y(-2)
@@ -107,10 +135,10 @@ function LoadPlayerStuff(Player)
 		end,
 		Def.Quad {
 			InitCommand=function(self)
-				self:zoomto(100,40+2):skewx(0.1):addx(15)
+				self:zoomto(536/2.7,120/3):addx(0):addy(3)
 			end,
 			OnCommand=function(self)
-				self:diffuse(color("#d373ff")):diffusealpha(0.3):blend("multiply")
+				self:diffuse(color("#a947ff")):diffusealpha(1)
 			end
 		}
 	}
@@ -119,7 +147,7 @@ function LoadPlayerStuff(Player)
 		Name = 'Scroller',
 		NumItemsToDraw=6,
 		OnCommand=function(self)
-			self:y(1):SetFastCatchup(true):SetMask(200,58):SetSecondsPerItem(0.15)
+			self:y(1):SetFastCatchup(true):SetMask(200,2):SetSecondsPerItem(0.15)
 		end,
 		TransformFunction=function(self, offset, itemIndex, numItems)
 			local focus = scale(math.abs(offset),0,2,1,0)
@@ -267,7 +295,7 @@ t[#t+1] = Def.ActorFrame{
 		Def.ActorFrame {
 			Name = 'P1Frame',
 			InitCommand=function(self)
-				self:x(SCREEN_CENTER_X-250):y(SCREEN_CENTER_Y+50):halign(0):diffuse(color("#F3F3F3")):draworder(10)
+				self:x(SCREEN_CENTER_X-(SCREEN_WIDTH/4)):y(SCREEN_CENTER_Y+50):halign(0):diffuse(color("#F3F3F3")):draworder(10)
 			end,
 			OnCommand=function(self)
 				self:zoom(3):easeOut(0.35):zoom(1):addx(-50):draworder(8)
