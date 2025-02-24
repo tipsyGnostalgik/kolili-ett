@@ -225,10 +225,10 @@ local t = Def.ActorFrame
 			Name = "Msd Stars Shade",
 			
 			InitCommand = function(self)
-				self:xy(151.5-232/2 + 4, 196-200/2+16+24 + 101):halign(0):valign(0.5)
-				self:zoom(0.25)
+				self:xy(151.5-232/2 + 0, 196-200/2+16+24 + 101):halign(0):valign(0.5)
+				self:zoom(0.23)
 				self:diffuse(color("#0c0c0c")):diffusealpha(0.8)
-				self:settext("żżżżżżżżż")
+				self:settext("żżżżżżżżżż")
 			end
 		},
 
@@ -237,8 +237,8 @@ local t = Def.ActorFrame
 			Name = "Msd Stars",
 			
 			InitCommand = function(self)
-				self:xy(151.5-232/2 + 4, 196-200/2+16+24 + 101):halign(0):valign(0.5)
-				self:zoom(0.25)
+				self:xy(151.5-232/2 + 0, 196-200/2+16+24 + 101):halign(0):valign(0.5)
+				self:zoom(0.23)
 				self:diffuse(color("#dddddd")):diffusealpha(1)
 				self:settext("żżżżżżżżż")
 			end,
@@ -247,15 +247,70 @@ local t = Def.ActorFrame
 				local meter = steps:GetMSD(getCurRateValue(), 1)
 				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
 				
+				if floormeter > 10 then
+					repeat floormeter = floormeter - 10 until floormeter <= 10
+				end
 
-				self:settext(song and "żżżżżżżżż" or ""):diffuse(getMSDColor(meter))
-				--self:settext(floormeter):diffuse(getMSDColor(meter))
+				local neato = string.rep("ż", floormeter)
+
+				--self:settext(song and "żżżżżżżżż" or ""):diffuse(getMSDColor(meter))
+				self:settext(neato):diffuse(getMSDColor(meter))
 			end,
 			CurrentRateChangedMessageCommand = function (self)
 				local steps = GAMESTATE:GetCurrentSteps()
 				local meter = steps:GetMSD(getCurRateValue(), 1)
+				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
 
-				self:settext(song and "żżżżżżżżż" or ""):diffuse(getMSDColor(meter))
+				if floormeter > 10 then
+					repeat floormeter = floormeter - 10 until floormeter <= 10
+				end
+
+				local neato = string.rep("ż", floormeter)
+
+				self:settext(song and neato or ""):diffuse(getMSDColor(meter))
+			end
+		},
+
+		LoadFont("_176menuksd") ..
+		{
+			Name = "Msd Stars",
+			
+			InitCommand = function(self)
+				self:xy(151.5-232/2 + 0, 196-200/2+16+24 + 101):halign(0):valign(0.5)
+				self:zoom(0.23)
+				self:diffuse(color("#dddddd")):diffusealpha(1)
+				self:settext("żżżżżżżżż")
+			end,
+			CurrentStepsChangedMessageCommand = function(self)
+				local steps = GAMESTATE:GetCurrentSteps()
+				local meter = steps:GetMSD(getCurRateValue(), 1)
+				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
+				
+				if floormeter > 10 then
+					floormeter = math.floor(floormeter / 10)
+				else
+					floormeter = 0
+				end
+
+				local neato = string.rep("Ľ", floormeter)
+
+				--self:settext(song and "żżżżżżżżż" or ""):diffuse(getMSDColor(meter))
+				self:settext(neato):diffuse(color("#f3f3f3")):diffusealpha(0.8)
+			end,
+			CurrentRateChangedMessageCommand = function (self)
+				local steps = GAMESTATE:GetCurrentSteps()
+				local meter = steps:GetMSD(getCurRateValue(), 1)
+				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
+
+				if floormeter > 10 then
+					floormeter = math.floor(floormeter / 10)
+				else
+					floormeter = 0
+				end
+
+				local neato = string.rep("Ľ", floormeter)
+
+				self:settext(song and neato or ""):diffuse(color("#F3F3F3")):diffusealpha(0.8)
 			end
 		}
 }
