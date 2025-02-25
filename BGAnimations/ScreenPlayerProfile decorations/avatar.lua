@@ -1,5 +1,6 @@
 local avatarHeight = 75
 local avatarWidth = 75
+local CardWidth = 335
 local avatarBorder = 3
 local pn = GAMESTATE:GetEnabledPlayers()[1]
 local profile = PROFILEMAN:GetProfile(pn)
@@ -45,6 +46,27 @@ t[#t+1] = Def.Quad{
 	}
 
 	-- Avatar
+
+	t[#t + 1] = Def.Sprite {
+		Name = "Mask image 1",
+		Texture = THEME:GetPathG("","mask_profav"),
+		InitCommand = function(self)
+			--this part just sets position and size, nothing special
+			self:zoomto(avatarHeight,avatarWidth)
+		end,
+		OnCommand = function(self)
+			--this is where the magic happens.
+			--use MaskSource() on the mask and
+			--then use MaskDest() on the image
+			--that's going to be masked. MaskDest()
+			--will refer back to the same MaskSource()
+			--until another MaskSource() is used again
+			--so you can use MaskDest() multiple times
+			--for the same MaskSource() if you want
+			self:MaskSource()
+		end
+	}
+
 	t[#t+1] = Def.Sprite {
 		InitCommand = function (self) self:playcommand("ModifyAvatar") end,
 		PlayerJoinedMessageCommand = function(self) self:queuecommand('ModifyAvatar') end,
@@ -54,6 +76,9 @@ t[#t+1] = Def.Quad{
 			self:visible(true)
 			self:Load(getAvatarPath(PLAYER_1))
 			self:zoomto(avatarHeight,avatarWidth)
+		end,
+		OnCommand = function(self)
+			self:MaskDest()
 		end
 	}
 

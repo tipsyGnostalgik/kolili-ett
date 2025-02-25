@@ -64,5 +64,6 @@ t[#t+1] = tab:makeTabActors() .. {
 }
 
 t[#t+1] = LoadActor("../_cursor")
+t[#t+1] = LoadActor("../_mouse")
 
 return t

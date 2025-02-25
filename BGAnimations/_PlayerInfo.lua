@@ -130,92 +130,27 @@ t[#t + 1] = Def.ActorFrame
 			MouseLeftClickMessageCommand = function(self)
 				if isOver(self) and not SCREENMAN:get_input_redirected(PLAYER_1) then
 					local top = SCREENMAN:GetTopScreen()
-					SCREENMAN:SetNewScreen("ScreenAssetSettings")
+					SCREENMAN:SetNewScreen("ScreenPlayerProfile")
 				end
 			end
-		},
-	Def.Quad{
-			Name = "Avatar Border Top",
-			InitCommand = function(self)
-				self:visible(true):halign(0):valign(0):xy(614,10):diffuse(color("#3c3c3c"))
-			end,
-			BeginCommand = function(self)
-				self:queuecommand("ModifyAvatar")
-			end,
-			ModifyAvatarCommand = function(self)
-				self:finishtweening()
-				self:zoomto(28+120, 1)
-			end,
-		},
-	Def.Quad{
-			Name = "Avatar Border Bottom",
-			InitCommand = function(self)
-				self:visible(true):halign(0):valign(1):xy(0,0):diffuse(color("#3c3c3c"))
-			end,
-			BeginCommand = function(self)
-				self:queuecommand("ModifyAvatar")
-			end,
-			ModifyAvatarCommand = function(self)
-				self:finishtweening()
-				self:zoomto(28+120, 0.5)
-			end,
-		},
-	Def.Quad{
-			Name = "Avatar Border Left",
-			InitCommand = function(self)
-				self:visible(true):halign(0):valign(0):xy(614,10):diffuse(color("#3c3c3c"))
-			end,
-			BeginCommand = function(self)
-				self:queuecommand("ModifyAvatar")
-			end,
-			ModifyAvatarCommand = function(self)
-				self:finishtweening()
-				self:zoomto(0.5, 28)
-			end,
-		},
-	Def.Quad{
-			Name = "Avatar Border Right",
-			InitCommand = function(self)
-				self:visible(true):halign(1):valign(0):xy(642,10):diffuse(color("#3c3c3c"))
-			end,
-			BeginCommand = function(self)
-				self:queuecommand("ModifyAvatar")
-			end,
-			ModifyAvatarCommand = function(self)
-				self:finishtweening()
-				self:zoomto(1, 28)
-			end,
-		},
-	Def.Quad{
-			Name = "Player Card Border Right",
-			InitCommand = function(self)
-				self:visible(true):halign(1):valign(0):xy(642+120,10):diffuse(color("#3c3c3c"))
-			end,
-			BeginCommand = function(self)
-				self:queuecommand("ModifyAvatar")
-			end,
-			ModifyAvatarCommand = function(self)
-				self:finishtweening()
-				self:zoomto(1, 28)
-			end,
 		},
 	Def.Sprite{
 			Name = "Player Card Background",
 			InitCommand = function(self)
-				self:stretchto(642, 10+1, 642+120-1, 10+28-1)
+				self:zoom(28/128):halign(0):valign(0):addx(28)
 			end,
 			SetCommand = function(self)
-				self:Load(getCardPath(PLAYER_1)):stretchto(myposx + 28, myposy + 0, (myposx + mysize) + 125, (myposy + mysize) + 28)
+				self:Load(getCardPath(PLAYER_1)):zoom(28/128):addx(myposx):addy(myposy)
 			end,
 		},
 
 	Def.Sprite{
 			Name = "Player Card Shade",
 			InitCommand = function(self)
-				self:stretchto(125, 0, 28, 28)
+				self:zoom(28/128):halign(0):valign(0):addx(28)
 			end,
 			SetCommand = function(self)
-				self:Load(THEME:GetPathG("", "cardgrad")):stretchto(myposx + 28, myposy + 0, (myposx + mysize) + 125, (myposy + mysize) + 28)
+				self:Load(THEME:GetPathG("", "cardgrad")):zoom(28/128):addx(myposx):addy(myposy)
 			end,
 		},
 	--Player name string
@@ -266,7 +201,7 @@ t[#t + 1] = Def.ActorFrame
 		{
 			Name = "Rating",
 			InitCommand = function(self)
-				self:xy(19, 14):maxwidth(400):halign(0):zoom(0.6):diffuse(getMainColor("positive")):valign(0)
+				self:xy(19, 14):maxwidth(400):halign(0):zoom(0.6):diffuse(getMainColor("positive")):valign(0):addx(myposx):addy(myposy)
 			end,
 			SetCommand = function(self)
 				self:settextf("%5.0f", playerRating)
@@ -281,24 +216,24 @@ t[#t + 1] = Def.ActorFrame
 		{
 			Name = "Rating2",
 			InitCommand = function(self)
-				self:valign(1):halign(1):xy(642+120-2, 24+10):zoom(0.3)
+				self:valign(1):halign(1):xy(120-2, 24):zoom(0.3)
 			end,
 			SetCommand = function(self)
-				self:settext(math.floor((math.fmod(playerRating, 1)+0.005)*100) .. "%")
+				self:settext(math.floor((math.fmod(playerRating, 1)+0.005)*100) .. "%")addx(myposx):addy(myposy)
 			end,
 		},
 	Def.Quad
 		{
 			Name = "Rating2Background",
 			InitCommand = function(self)
-				self:halign(0):valign(1):xy(642, 24+13.5):setsize(120-1, 3):diffuse(color("#000000")):diffusealpha(0.5)
+				self:halign(0):valign(1):xy(642, 24+13.5):setsize(120-1, 3):diffuse(color("#000000")):diffusealpha(0.5)addx(myposx):addy(myposy)
 			end,
 		},
 	Def.Quad
 		{
 			Name = "Rating2Background",
 			InitCommand = function(self)
-				self:halign(0):valign(1):xy(642, 24+13.5):setsize(120*math.fmod(playerRating, 1)-1, 3):diffuse(color("#dddddd")):diffusealpha(0.75)
+				self:halign(0):valign(1):xy(642, 24+13.5):setsize(120*math.fmod(playerRating, 1)-1, 3):diffuse(color("#dddddd")):diffusealpha(0.75)addx(myposx):addy(myposy)
 			end,
 		},
 	LoadFont("Common Normal") ..

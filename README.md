@@ -1,6 +1,11 @@
 # KoLili
 Something that started as a small edit now turned into a project to make Etterna really pretty!
 
+# WARNING:
+This is the **Working** tree, it has an UNFINISHED song select and you should download the file from RELEASES instead of cloning due to the PlayerCards.
+
+---
+
 <sub><sup>NOTE: This gif is OUTDATED</sub></sub>
 
 ![Stage selection animation.](https://i.imgur.com/6zUYS8T.gif)

@@ -1,10 +1,22 @@
 local t = Def.ActorFrame {}
+
+t[#t+1] = Def.Quad{
+	Name="SquareMask",
+	InitCommand = function(self)
+		self:zoomto(32,32)
+	end,
+	OnCommand = function(self)
+		self:MaskSource()
+	end
+}
+
 t[#t+1] = Def.Sprite {
 	InitCommand = function(self)
 		self:fadeleft(0)
 		self:halign(1)
 		self:zoomto(64,32)
 		self:x(0)
+		self:addx(32)
 		self:y(0)
 		self:diffusealpha(1)
 		end,
@@ -17,7 +29,8 @@ t[#t+1] = Def.Sprite {
 					bnpath = THEME:GetPathG("Common", "fallback banner")
 				end
 				self:LoadBackground(bnpath)
-				self:zoomto(64,32)
+				
+				self:scaletoclipped(32,32)
 			end
 		end
 	};

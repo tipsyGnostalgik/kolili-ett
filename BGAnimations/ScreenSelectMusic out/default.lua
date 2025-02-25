@@ -16,6 +16,27 @@ local haveaniceplay = {
 
 local t = Def.ActorFrame{}
 
+local function startpressed(event)
+
+	if event.type == "InputEventType_FirstPress" then
+		if event.DeviceInput.button == "DeviceButton_w" then
+			MESSAGEMAN:Broadcast("PressedIt")
+            SOUND:PlayOnce(THEME:GetPathS("", "Common Value"))
+	    end
+    end
+
+	return nil
+end
+
+t[#t+1] = Def.ActorFrame {
+    Name = "some frame on the screen",
+    BeginCommand = function(self)
+        --i'm not sure if adding many of these is a good idea
+        --so try to combine the binds into a few functions instead of having a billion of them
+        SCREENMAN:GetTopScreen():AddInputCallback(startpressed)
+    end
+}
+
 t[#t+1] = Def.Quad{
 	InitCommand=function(self)
         self:draworder(2)
@@ -164,7 +185,10 @@ t[#t+1] = LoadFont("_176mksd 100px")..{
         self:sleep(1)
 		:easeOut(1):zoom(0.2):addy(50):diffusealpha(0.9):sleep(1)
         :easeIn(0.1):zoom(0.2):diffusealpha(0)
-	end
+	end,
+    PressedItMessageCommand = function (self)
+        self:settext("Entering Options...")
+    end
 }
 
 t[#t+1] = Def.Quad{

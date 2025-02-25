@@ -30,6 +30,13 @@ local t =
 }
 
 t[#t + 1] =
+	Def.Quad {
+		InitCommand=function(self)
+			self:zoomto(SCREEN_WIDTH,28):halign(0):valign(0):diffuse(color("#000000")):diffusealpha(0.8)
+		end
+	}
+
+t[#t + 1] =
 	Def.Actor {
 	CodeMessageCommand = function(self, params)
 		if params.Name == "AvatarShow" and getTabIndex() == 0 and not SCREENMAN:get_input_redirected(PLAYER_1) then
@@ -64,8 +71,11 @@ t[#t + 1] =
 	}
 
 t[#t + 1] = LoadActor("../_mouse")
+t[#t + 1] = LoadActor("../_cursor")
 t[#t + 1] = LoadActor("../_halppls")
 t[#t + 1] = LoadActor("currenttime")
+
+
 
 GAMESTATE:UpdateDiscordMenu(
 	GetPlayerOrMachineProfile(PLAYER_1):GetDisplayName() ..

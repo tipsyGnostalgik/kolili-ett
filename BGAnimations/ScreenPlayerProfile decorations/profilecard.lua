@@ -44,6 +44,7 @@ end
 t[#t+1] = quadButton(3)..{
 	InitCommand = function (self)
 		self:xy(145,30)
+		self:skewx(0.05)
 		self:zoomto(90,20)
 		self:diffuse(color(colorConfig:get_data().main.disabled))
 		if DLMAN:IsLoggedIn() then
@@ -106,6 +107,7 @@ t[#t+1] = quadButton(3)..{
 	InitCommand = function (self)
 		self:xy(245,30)
 		self:zoomto(90,20)
+		self:skewx(0.05)
 
 		if DLMAN:IsLoggedIn() then
 			self:diffuse(color(colorConfig:get_data().main.negative)):diffusealpha(0.8)
@@ -193,10 +195,10 @@ t[#t+1] = LoadFont("Common Bold")..{
 
 
 -- Player name
-t[#t+1] = LoadFont("Common BLarge")..{
+t[#t+1] = LoadFont("_176menuksd")..{
 	InitCommand  = function(self)
 		self:xy(100,-25)
-		self:zoom(0.35)
+		self:zoom(0.25)
 		self:halign(0)
 		self:diffuse(color(colorConfig:get_data().selectMusic.TabContentText))
 		self:queuecommand('Set')

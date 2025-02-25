@@ -45,6 +45,33 @@ local t = Def.ActorFrame
 				self:diffusealpha(1)
 			end
 		},
+
+		Def.Sprite{
+			Name = "CDTitle",
+			
+			InitCommand = function(self)
+				self:xy(245-(32/2), 180):halign(0.5):valign(0.5)
+				self:scaletoclipped(64,32)
+				self:fadetop(0.4)
+			end,
+			CurrentStepsChangedMessageCommand = function(self)
+				if INPUTFILTER:IsBeingPressed("tab") then
+					self:finishtweening():smooth(0.25):diffusealpha(0):sleep(0.2):queuecommand("ModifyBanner")
+				else
+					self:finishtweening():queuecommand("ModifyBanner")
+				end
+			end,
+			ModifyBannerCommand = function(self)
+				self:finishtweening()
+				local bnpath = GAMESTATE:GetCurrentSong() and GAMESTATE:GetCurrentSong():GetCDTitlePath()
+				if not bnpath or bnpath == "" then
+					bnpath = THEME:GetPathG("", "LineGradient")
+				end
+				self:LoadBackground(bnpath)
+				self:diffusealpha(0.8)
+			end
+		},
+		
 	Def.Quad{
 			Name = "Black thing",
 			
@@ -267,7 +294,9 @@ local t = Def.ActorFrame
 
 				local neato = string.rep("ż", floormeter)
 
+				self:stoptweening()
 				self:settext(song and neato or ""):diffuse(getMSDColor(meter))
+				self:zoom(0.25):easeOut(0.1):zoom(0.23)
 			end
 		},
 
@@ -309,8 +338,9 @@ local t = Def.ActorFrame
 				end
 
 				local neato = string.rep("Ľ", floormeter)
-
+				self:stoptweening()
 				self:settext(song and neato or ""):diffuse(color("#F3F3F3")):diffusealpha(0.8)
+				self:zoom(0.24):easeOut(0.1):zoom(0.23)
 			end
 		}
 }
@@ -324,9 +354,12 @@ local sdl = Def.ActorFrame
 	end
 }
 
+local diffid = 0
+
 for i = 1, 4 do
 	local x = 54 * (i-1)
 	local y = 0
+
 	sdl[#sdl+1] = Def.ActorFrame
 		{
 			Name = "StepsDisplayList Difficulty " .. i,
@@ -370,10 +403,16 @@ for i = 1, 4 do
 			LoadFont("Common Bold") ..{
 					Name = "Difficulty Label",
 					InitCommand = function(self)
+						local steps = GAMESTATE:GetCurrentSteps()
+
 						self:zoom(0.367)
-						self:settext("ah! so sorry")
+						self:settext(steps:GetDifficulty())
 						self:halign(0.5):valign(0.5)
 						self:xy(x+52/2, y+14/2)
+					end,
+					CurrentStepsChangedMessageCommand = function(self)
+						local steps = GAMESTATE:GetCurrentSteps()
+						self:settext(steps:GetDifficulty())
 					end
 				}
 		}

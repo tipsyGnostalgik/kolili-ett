@@ -333,6 +333,15 @@ local function topRow()
 		end
 	}
 
+	t[#t+1] = Def.Sprite {
+		InitCommand = function (self) 
+			self:x(-frameWidth/2 + 5+30)
+			self:halign(0)
+			self:Load(THEME:GetPathG("", "cardgrad"))
+			self:zoomto(134,30)
+		end
+	}
+
 	t[#t+1] = LoadFont("Common BLarge") .. {
 		InitCommand = function(self)
 			self:xy(-frameWidth/2 + 30 + 10, -7)
