@@ -137,10 +137,10 @@ t[#t + 1] = Def.ActorFrame
 	Def.Sprite{
 			Name = "Player Card Background",
 			InitCommand = function(self)
-				self:zoom(28/128):halign(0):valign(0):addx(28)
+				self:zoomto(125+mysize,28+mysize):halign(0):valign(0):addx(28)
 			end,
 			SetCommand = function(self)
-				self:Load(getCardPath(PLAYER_1)):zoom(28/128):addx(myposx):addy(myposy)
+				self:Load(getCardPath(PLAYER_1)):zoomto(125,28):addx(myposx):addy(myposy)
 			end,
 		},
 
@@ -150,7 +150,7 @@ t[#t + 1] = Def.ActorFrame
 				self:zoom(28/128):halign(0):valign(0):addx(28)
 			end,
 			SetCommand = function(self)
-				self:Load(THEME:GetPathG("", "cardgrad")):zoom(28/128):addx(myposx):addy(myposy)
+				self:Load(THEME:GetPathG("", "cardgrad")):zoomto(125,28):addx(myposx):addy(myposy)
 			end,
 		},
 	--Player name string

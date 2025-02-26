@@ -249,6 +249,29 @@ local t = Def.ActorFrame
 
 		LoadFont("_176menuksd") ..
 		{
+			Name = "instructions",
+			InitCommand = function (self)
+				self:zoom(15/100):xy(150,SCREEN_CENTER_Y+65)
+				if song == nil then
+					self:settext(" ")
+				else
+					self:settext("Press Č and Ę to exit group.")
+				end
+			end,
+
+			CurrentStepsChangedMessageCommand = function (self)
+				
+			if song == nil then
+				self:settext(" ")
+			else
+				self:settext("Press Č and Ę to exit group.")
+			end
+
+			end
+		},
+
+		LoadFont("_176menuksd") ..
+		{
 			Name = "Msd Stars Shade",
 			
 			InitCommand = function(self)

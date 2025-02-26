@@ -34,6 +34,30 @@ t[#t + 1] =
 		InitCommand=function(self)
 			self:zoomto(SCREEN_WIDTH,28):halign(0):valign(0):diffuse(color("#000000")):diffusealpha(0.8)
 		end
+}
+
+t[#t + 1] =
+	LoadFont("_176mksd")..{
+		InitCommand = function (self)
+			song = GAMESTATE:GetCurrentSong()
+			local group
+
+			self:halign(1):valign(0):x(SCREEN_WIDTH-10)
+			self:zoom(27/100)
+			self:settext(group or " ")
+		end,
+
+		CurrentStepsChangedMessageCommand = function (self)
+			song = GAMESTATE:GetCurrentSong()
+			local group
+			if song == nil then
+				group = " "
+			else
+			group = song:GetGroupName()
+			end
+			
+			self:settext(group or " ")
+		end
 	}
 
 t[#t + 1] =
