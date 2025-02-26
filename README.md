@@ -6,9 +6,7 @@ This is the **Working** tree, it has an UNFINISHED song select and you should do
 
 ---
 
-<sub><sup>NOTE: This gif is OUTDATED</sub></sub>
-
-![Stage selection animation.](https://i.imgur.com/6zUYS8T.gif)
+![Stage selection animation.](https://i.imgur.com/tCkVR5I.gif)
 
 
 I still have quite the To-Do list, so please take the current pre-release not as that, but as a really small taste of what I want.
