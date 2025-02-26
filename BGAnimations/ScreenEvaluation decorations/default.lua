@@ -506,6 +506,26 @@ local function oldEvalStuff()
 			end
 		}
 
+		t[#t+1] = Def.Sprite {
+			InitCommand = function (self) 
+				self:xy(53+10-(frameWidth/2),5)
+				self:visible(true)
+				self:halign(0)
+				self:Load(getCardPath(PLAYER_1))
+				self:zoom(56/120)
+			end
+		}
+
+		t[#t+1] = Def.Sprite {
+			InitCommand = function (self) 
+				self:xy(53+10-(frameWidth/2),5)
+				self:visible(true)
+				self:halign(0)
+				self:Load(THEME:GetPathG("","cardgrad"))
+				self:zoom(56/120)
+			end
+		}
+
 		t[#t+1] = Def.Quad{
 			InitCommand = function(self)
 				self:xy(25+10-(frameWidth/2),5)
@@ -527,11 +547,11 @@ local function oldEvalStuff()
 			end
 		}
 
-		t[#t+1] = LoadFont("Common Normal")..{
+		t[#t+1] = LoadFont("_176menuksd")..{
 			Name = "DisplayName",
 			InitCommand  = function(self)
-				self:xy(69-frameWidth/2,9)
-				self:zoom(0.6)
+				self:xy(69-frameWidth/2,-10)
+				self:zoom(0.3)
 				self:halign(0)
 				self:diffuse(color(colorConfig:get_data().evaluation.ScoreCardText))
 
@@ -621,7 +641,7 @@ local function oldEvalStuff()
 		t[#t+1] = LoadFont("Common Normal")..{
 
 			InitCommand = function(self)
-				self:xy(frameWidth/2-5,5):zoom(0.45):halign(1):valign(0)
+				self:xy(frameWidth/2-128,22):zoom(0.45):halign(1):valign(0)
 				self:glowshift():effectcolor1(color("1,1,1,0.05")):effectcolor2(color("1,1,1,0")):effectperiod(2)
 			end,
 			SetCommand=function(self) 
@@ -655,7 +675,7 @@ local function oldEvalStuff()
 		t[#t+1] = LoadFont("Common Normal")..{
 			Name = "SSR",
 			InitCommand = function(self) 
-				self:xy(frameWidth/2-5,19):zoom(0.5):halign(1):valign(0)
+				self:xy(frameWidth/2-260,10):zoom(0.5):halign(0):valign(0)
 			end,
 			SetCommand=function(self) 
 				local meter = curScore:GetSkillsetSSR("Overall")
@@ -2997,6 +3017,7 @@ local function newEvalStuff()
 				self:zoomto(playerInfoAvatarWH - 4,playerInfoAvatarWH - 4)
 			end
 		},
+
 		LoadFont("Common Normal") .. {
 			Name = "PlayerName", 
 			InitCommand = function(self)

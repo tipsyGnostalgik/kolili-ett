@@ -22,7 +22,7 @@ I still have quite the To-Do list, so please take the current pre-release not as
 * Avoid stretching on 4:3 (I don't know how I would do this.)
 
 ---
-# <a href="https://github.com/poco0317/spawncamping-wallhack">spawncamping-wallhack</a>
+# <a href="https://github.com/ca25nada/spawncamping-wallhack">spawncamping-wallhack</a>
 A SM5 Theme ported for Etterna, a client aimed primarily for KB players.
 This is the theme
 Here are some old screenshots (very old)

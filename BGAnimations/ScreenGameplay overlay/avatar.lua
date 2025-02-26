@@ -38,9 +38,34 @@ local t = Def.ActorFrame {
 
 if fullPlayerInfo then
 	-- whole frame bg quad
+
+	t[#t+1] = Def.Sprite {
+		InitCommand = function(self)
+			self:halign(0):valign(0)
+		end,
+		BeginCommand = function(self) self:queuecommand('ModifyAvatar') end,
+		ModifyAvatarCommand=function(self)
+			self:finishtweening()
+			self:Load(getCardPath(PLAYER_1)):addx(50)
+			self:zoomto(223,50)
+		end
+	}
+
+	t[#t+1] = Def.Sprite {
+		InitCommand = function(self)
+			self:halign(0):valign(0)
+		end,
+		BeginCommand = function(self) self:queuecommand('ModifyAvatar') end,
+		ModifyAvatarCommand=function(self)
+			self:finishtweening()
+			self:Load(THEME:GetPathG("", "cardgrad")):addx(50)
+			self:zoomto(223,50)
+		end
+	}
+
 	t[#t+1] = Def.Quad {
 		InitCommand = function(self)
-			self:zoomto(200,50)
+			self:zoomto(223+50,50)
 			self:halign(0):valign(0)
 			self:queuecommand('Set')
 		end,
@@ -48,11 +73,11 @@ if fullPlayerInfo then
 			local steps = GAMESTATE:GetCurrentSteps()
 			local diff = steps:GetDifficulty()
 			self:diffuse(color("#000000"))
-			self:diffusealpha(0.8)
+			self:diffusealpha(0.2)
 		end,
 		CurrentSongChangedMessageCommand = function(self) self:queuecommand('Set') end
 	}
-
+	
 	-- border?
 	t[#t+1] = Def.Quad{
 		InitCommand = function(self)

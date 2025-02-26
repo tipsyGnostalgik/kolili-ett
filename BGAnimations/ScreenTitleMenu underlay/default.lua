@@ -132,7 +132,7 @@ t[#t+1] = Def.Sprite {
 }
 
 
-t[#t+1] = Def.Quad {
+--[[t[#t+1] = Def.Quad {
 	InitCommand = function(self)
 		self:zoomto(50,50):xy(SCREEN_WIDTH-35, SCREEN_HEIGHT-45):draworder(-2):diffusealpha(0)
 	end,
@@ -150,7 +150,7 @@ t[#t+1] = Def.Quad {
 	UpdateProfileNumMessageCommand = function(self)
 		self:stoptweening():easeOut(0.35):zoomx((22 + (string.len(PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetDisplayName())*21)))
 	end
-}
+} ]]
 
 t[#t+1] = Def.Quad {
 	InitCommand = function(self)
@@ -158,13 +158,13 @@ t[#t+1] = Def.Quad {
 	end,
 	OnCommand = function(self)
 		self:sleep(2)
-		:draworder(9)
+		:draworder(-20)
 		:halign(1)
 		:easeOut(1)
 		:diffuse(color("#DA88DA"))
 		--:diffuse(getMSDColor(lolocalrating))
 		:diffusealpha(0.6)
-		:skewx(-0.07)
+		:skewx(-0.02)
 		:zoomx((22 + (string.len(yourname)*21)) + 70)
 		:addx(-10)
 	end,
@@ -172,6 +172,36 @@ t[#t+1] = Def.Quad {
 		local lolocalrating = PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetPlayerRating()
 		--self:diffuse(getMSDColor(lolocalrating)):diffusealpha(0.6)
 		self:stoptweening():easeOut(0.35):zoomx((22 + (string.len(PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetDisplayName())*21)) + 70)
+	end
+}
+
+t[#t+1] = Def.Sprite {
+	InitCommand = function (self)
+		self:scaletoclipped(10+ (string.len(yourname)*21),50):xy(SCREEN_WIDTH-60, SCREEN_HEIGHT-45):halign(1):draworder(-2)
+		self:Load(getAssetPathFromProfileID("PlayerCard", PROFILEMAN:GetLocalProfileIDFromIndex(profilenum)))
+	end,
+
+	UpdateProfileNumMessageCommand = function(self)
+
+		local whuh = (10+ (string.len(PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetDisplayName())*21))
+
+		self:stoptweening()
+		self:Load(getAssetPathFromProfileID("PlayerCard", PROFILEMAN:GetLocalProfileIDFromIndex(profilenum)))
+		self:easeOut(0.35):scaletoclipped(10+ (string.len(PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetDisplayName())*21),50)
+	end
+}
+
+t[#t+1] = Def.Sprite {
+	InitCommand = function (self)
+		self:scaletoclipped(10+ (string.len(yourname)*21),50):xy(SCREEN_WIDTH-60, SCREEN_HEIGHT-45):halign(1):draworder(-2)
+		self:Load(THEME:GetPathG("", "cardgrad"))
+	end,
+
+	UpdateProfileNumMessageCommand = function(self)
+		self:stoptweening()
+		--self:Load(getAssetPathFromProfileID("PlayerCard", PROFILEMAN:GetLocalProfileIDFromIndex(profilenum)))
+		self:Load(THEME:GetPathG("", "cardgrad"))
+		self:easeOut(0.35):scaletoclipped(10+ (string.len(PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetDisplayName())*21),50)
 	end
 }
 
@@ -216,7 +246,7 @@ t[#t+1] = LoadFont("_176mksd") .. {
 		local lolocalrating = PROFILEMAN:GetLocalProfileFromIndex(profilenum):GetPlayerRating()
 		self:stoptweening()
 		if lolocalrating < 8 then
-			self:settext("N/A"):diffuse(color"#000000")
+			self:settextf("%0.2f",lolocalrating):diffuse(color("#F3F3F3"))
 		else
 		self:settextf("%0.2f",lolocalrating):diffuse(getMSDColor(lolocalrating))
 		end
