@@ -6,7 +6,9 @@ This is the **Working** tree, it has an UNFINISHED song select and you should do
 
 ---
 
-![Stage selection animation.](https://i.imgur.com/tCkVR5I.gif)
+<sub><sup>NOTE: This gif is from Working and a WIP</sub></sub>
+
+![Stage selection animation.](https://file.garden/Z3baei1OK095pmg0/kolili/Etterna_fYvX6XbrdU.gif)
 
 
 I still have quite the To-Do list, so please take the current pre-release not as that, but as a really small taste of what I want.
@@ -14,10 +16,10 @@ I still have quite the To-Do list, so please take the current pre-release not as
 ## To-do:
 * ~~Fix Online functions (Really far off, HUGE priority.)~~ I downloaded the wrong SCWH version accidentally but i'll keep this to remind everyone i'm a FUCKING IDIOT
 * Revamp Music Select (Far off, High priority.)
-* Add symbols to the main theme font (Doable, Low priority.)
+* Add symbols to the main theme font (Done, on Working.)
 * Revamp Stage Clear and Failed (Doable, High priority.)
 * Add Anti-Alias to Logo on transition (Doable, I'm just lazy.)
-* Avoid stretching on 4:3 (I don't know how I would do this.)
+* Avoid stretching on 4:3 (Doable, High priority.)
 
 ---
 # <a href="https://github.com/ca25nada/spawncamping-wallhack">spawncamping-wallhack</a>
