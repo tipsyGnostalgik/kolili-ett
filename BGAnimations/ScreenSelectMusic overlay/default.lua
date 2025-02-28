@@ -1,9 +1,25 @@
 local showVisualizer = true
 
+local song = GAMESTATE:GetCurrentSong()
+
 local function input(event)
 	if event.DeviceInput.button == "DeviceButton_left mouse button" and event.type == "InputEventType_Release" then
 	elseif event.DeviceInput.button == "DeviceButton_right mouse button" and event.type == "InputEventType_Release" then
 	end
+	return false
+end
+
+local function chartprevieww(event)
+
+	if event.type == "InputEventType_FirstPress" and song ~= nil then
+		if event.DeviceInput.button == "DeviceButton_space" then
+			MESSAGEMAN:Broadcast("comehere")
+            SOUND:PlayOnce(THEME:GetPathS("", "Common Value"))
+			SCREENMAN:SetNewScreen("ScreenChartPreview")
+
+		end
+	end
+
 	return false
 end
 
@@ -34,6 +50,15 @@ t[#t + 1] =
 		InitCommand=function(self)
 			self:zoomto(SCREEN_WIDTH,28):halign(0):valign(0):diffuse(color("#000000")):diffusealpha(0.8)
 		end
+}
+
+t[#t+1] = Def.ActorFrame {
+    Name = "some frame on the screen",
+    BeginCommand = function(self)
+        --i'm not sure if adding many of these is a good idea
+        --so try to combine the binds into a few functions instead of having a billion of them
+        SCREENMAN:GetTopScreen():AddInputCallback(chartprevieww)
+    end
 }
 
 t[#t + 1] =
@@ -94,6 +119,13 @@ t[#t + 1] =
 		end
 	}
 
+--[[t[#t + 1] = LoadFont("_176mksd")..{
+	Text=getSongPreviewMode(),
+	InitCommand=function(self)
+		self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):zoom(0.3)
+	end
+	}
+]]
 t[#t + 1] = LoadActor("../_mouse")
 t[#t + 1] = LoadActor("../_cursor")
 t[#t + 1] = LoadActor("../_halppls")

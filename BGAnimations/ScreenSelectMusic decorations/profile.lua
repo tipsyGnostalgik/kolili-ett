@@ -6,6 +6,13 @@ local function BroadcastIfActive(msg)
 	end
 end
 
+local user = playerConfig:get_data(pn_to_profile_slot(pn)).Username
+local pass = playerConfig:get_data(pn_to_profile_slot(pn)).Password
+
+if isAutoLogin() then
+	DLMAN:LoginWithToken(user, pass)
+end
+
 local translated_info = {
 	Validated = THEME:GetString("TabProfile", "ScoreValidated"),
 	Invalidated = THEME:GetString("TabProfile", "ScoreInvalidated"),

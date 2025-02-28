@@ -45,6 +45,16 @@ local menuscreenslol = {
 t[#t+1] = LoadActor(menuscreenslol[math.random(#menuscreenslol)])
 --t[#t+1] = LoadActor("dflow")
 
+t[#t+1] = LoadActor("../_thequotes")
+
+
+t[#t+1] = LoadFont("_176mksd")..{
+	InitCommand=function (self)
+		self:xy(SCREEN_CENTER_X,SCREEN_HEIGHT-20):valign(1)
+		:settext(getRandomQuotes(themeConfig:get_data().global.TipType)):zoom(16/100):draworder(-3)
+	end
+}
+
 t[#t+1] = LoadFont("Common Normal") .. {
 	InitCommand=function(self)
 		self:xy(5,5):zoom(0.4):valign(0):halign(0)
@@ -72,7 +82,7 @@ t[#t+1] = LoadFont("_176mksd") .. {
 	end
 }
 
-t[#t+1] = LoadFont("_176mksd") .. {
+--[[t[#t+1] = LoadFont("_176mksd") .. {
 	InitCommand=function(self)
 		self:xy(5,SCREEN_HEIGHT-15):zoom(0.2):valign(1):halign(0)
 	end,
@@ -85,11 +95,11 @@ t[#t+1] = LoadFont("_176mksd") .. {
 			self:diffuse(getMainColor('disabled'))
 		end
 	end
-}
+} ]]
 
 t[#t+1] = LoadFont("_nikkyou sans") .. {
 	InitCommand=function(self)
-		self:xy(5,SCREEN_HEIGHT-5):zoom(0.12):valign(1):halign(0):diffuse(color("#666666"))
+		self:xy(SCREEN_WIDTH-10,SCREEN_HEIGHT-80):zoom(0.12):valign(1):halign(1):diffuse(color("#666666"))
 	end,
 	OnCommand=function(self)
 		if IsNetSMOnline() then

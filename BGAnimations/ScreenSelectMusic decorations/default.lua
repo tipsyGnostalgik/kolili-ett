@@ -16,15 +16,6 @@ local itsOn = true
 
 local stepsdisplayx = SCREEN_WIDTH * 0.56 - capWideScale(48, 56)
 
-local tab = getTabIndex()
-
-if tab == 1 then
-	stepsdisplayx = SCREEN_WIDTH * 0.56 - capWideScale(48, 56)
-	
-else
-	stepsdisplayx = -SCREEN_WIDTH
-end
-
 t[#t+1] = LoadActor("StepsDisplayList")
 	--[[Def.ActorFrame {
 	Name = "StepsDisplay",

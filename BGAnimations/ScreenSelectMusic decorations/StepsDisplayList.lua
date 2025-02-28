@@ -60,15 +60,6 @@ local t = Def.ActorFrame
 				else
 					self:finishtweening():queuecommand("ModifyBanner")
 				end
-			end,
-			ModifyBannerCommand = function(self)
-				self:finishtweening()
-				local bnpath = GAMESTATE:GetCurrentSong() and GAMESTATE:GetCurrentSong():GetCDTitlePath()
-				if not bnpath or bnpath == "" then
-					bnpath = THEME:GetPathG("", "LineGradient")
-				end
-				self:LoadBackground(bnpath)
-				self:diffusealpha(0.8)
 			end
 		},
 		
@@ -244,6 +235,16 @@ local t = Def.ActorFrame
 				else				
 					self:settextf(getCurRate " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
 				end
+			end,
+
+			CurrentGroupChangedMessageCommand = function(self)
+				local steps = GAMESTATE:GetCurrentSteps()
+				local meter = steps:GetMSD(getCurRateValue(), 1)
+				if getCurRate() == "1.0x" then
+					self:settextf(" "):diffusealpha(0) 
+				else				
+					self:settextf(getCurRate " "):diffuse(getMSDColor(meter)) -- bpm ugh -- format to 3 or more digits
+				end
 			end
 		},
 
@@ -315,6 +316,8 @@ local t = Def.ActorFrame
 					repeat floormeter = floormeter - 10 until floormeter <= 10
 				end
 
+				
+
 				local neato = string.rep("ż", floormeter)
 
 				self:stoptweening()
@@ -337,11 +340,20 @@ local t = Def.ActorFrame
 				local steps = GAMESTATE:GetCurrentSteps()
 				local meter = steps:GetMSD(getCurRateValue(), 1)
 				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
+				local floormeter2 = math.floor(steps:GetMSD(getCurRateValue(), 1))
 				
 				if floormeter > 10 then
 					floormeter = math.floor(floormeter / 10)
 				else
 					floormeter = 0
+				end
+
+				if floormeter2 > 10 then
+					repeat floormeter2 = floormeter2 - 10 until floormeter2 <= 10
+				end
+
+				if floormeter2 == 10 then
+					floormeter = floormeter - 1
 				end
 
 				local neato = string.rep("Ľ", floormeter)
@@ -353,11 +365,20 @@ local t = Def.ActorFrame
 				local steps = GAMESTATE:GetCurrentSteps()
 				local meter = steps:GetMSD(getCurRateValue(), 1)
 				local floormeter = math.floor(steps:GetMSD(getCurRateValue(), 1))
-
+				local floormeter2 = math.floor(steps:GetMSD(getCurRateValue(), 1))
+				
 				if floormeter > 10 then
 					floormeter = math.floor(floormeter / 10)
 				else
 					floormeter = 0
+				end
+
+				if floormeter2 > 10 then
+					repeat floormeter2 = floormeter2 - 10 until floormeter2 <= 10
+				end
+
+				if floormeter2 == 10 then
+					floormeter = floormeter - 1
 				end
 
 				local neato = string.rep("Ľ", floormeter)

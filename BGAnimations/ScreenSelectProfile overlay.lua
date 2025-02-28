@@ -298,10 +298,10 @@ t[#t+1] = Def.ActorFrame{
 				self:x(SCREEN_CENTER_X-(SCREEN_WIDTH/4)):y(SCREEN_CENTER_Y+50):halign(0):diffuse(color("#F3F3F3")):draworder(10)
 			end,
 			OnCommand=function(self)
-				self:zoom(3):easeOut(0.35):zoom(1):addx(-50):draworder(8)
+				self:addx(-50):y(0):easeOut(0.5):y(SCREEN_CENTER_Y+50):zoom(1):draworder(8)
 			end,
 			OffCommand=function(self)
-				self:easeOut(0.35):diffusealpha(0)
+				self:easeOut(0.35):y(0):diffusealpha(0)
 			end,
 			PlayerJoinedMessageCommand=function(self,param)
 				if param.Player == PLAYER_1 then
@@ -327,6 +327,15 @@ t[#t+1] = Def.ActorFrame{
 			end
 		}
 	}
+}
+
+t[#t+1] = LoadActor("_thequotes")
+
+t[#t+1] = LoadFont("_176mksd")..{
+	InitCommand=function (self)
+		self:xy(SCREEN_CENTER_X,SCREEN_HEIGHT+20):zoom(16/100):easeOut(0.35):addy(-40):valign(1):diffuse(color("#a947ff"))
+		:settext(getRandomQuotes(themeConfig:get_data().global.TipType)):draworder(-3)
+	end
 }
 
 t[#t+1] = Def.Sprite{
