@@ -13,6 +13,7 @@ local defaultConfig = {
 		BannerWheel = true,
 		JudgmentEnabled = true,
 		JudgmentTween = true,
+		JudgmentTweenMode = 1,
 		ComboTween = true,
 		ComboWords = true,
 		LeaderboardSlots = 8,
@@ -51,6 +52,10 @@ end
 
 function isBareBone()
 	return themeConfig:get_data().global.BareBone
+end
+
+function getJudgmentTweenMode()
+	return themeConfig:get_data().global.JudgmentTweenMode
 end
 
 function useJudgmentTween()

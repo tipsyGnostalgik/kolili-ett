@@ -57,12 +57,16 @@ local t = Def.ActorFrame {
 	LoadFont( "Combo", "numbers" ) .. {
 		Name="Number",
 		InitCommand = function(self)
-			self:xy(MovableValues.ComboX - 4, MovableValues.ComboY):halign(1):valign(1):skewx(-0.125):visible(
-				false
-			)
+			self:xy(MovableValues.ComboX - 4, MovableValues.ComboY):halign(1):valign(1):visible(false)
 		end,
 		OnCommand = function(self)
-			self:shadowlength(1):halign(1):valign(1):skewx(-0.125)
+			self:shadowlength(1):halign(0):valign(1)
+		end,
+		TapNoteScore_W1 = function(self)
+			self:diffuse(color("#ffed29"))
+		end,
+		W3Command = function (self)
+			self:diffuse(color("#5df751"))
 		end
 	},
 	LoadFont("Common Normal") .. {

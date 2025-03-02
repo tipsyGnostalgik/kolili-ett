@@ -3,10 +3,10 @@ local t = Def.ActorFrame{}
 t[#t+1] = Def.Sprite{
 	Texture="transition.png",
 	InitCommand=function(self)
-		self:zoom(1)
+		self:zoom(SCREEN_HEIGHT/1080):halign(0):valign(0)
 		:SetTextureFiltering(true)
 		:draworder(3)
-		:FullScreen()
+		--:FullScreen()
 	end
 }
 

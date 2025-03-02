@@ -8,12 +8,12 @@ t[#t+1] = Def.Sprite{
 		:draworder(3)
 	end,
 	OnCommand=function(self)
-		self:zoom(20)
-		:y(300)
-		:x(10500)
+		self:halign(0):valign(0)
+		:zoom(20)
+		:y(-SCREEN_CENTER_Y)
 		:easeOut(0.4)
-		:zoom(1)
-		:FullScreen()
+		:xy(0,0)
+		:zoom(SCREEN_HEIGHT/1080)
 	end
 }
 

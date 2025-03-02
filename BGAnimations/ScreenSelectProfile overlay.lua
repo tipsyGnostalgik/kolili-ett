@@ -341,7 +341,8 @@ t[#t+1] = LoadFont("_176mksd")..{
 t[#t+1] = Def.Sprite{
 	Texture="etterniload.png",
 	InitCommand=function (self)
-		self:FullScreen():draworder(9)
+		self:zoom(SCREEN_HEIGHT/1080):halign(0):valign(0)
+		:draworder(9)
 	end
 }
 

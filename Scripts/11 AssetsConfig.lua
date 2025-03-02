@@ -13,6 +13,9 @@ local defaultConfig = {
 	},
 	PlayerCard = {
 		default = "Assets/PlayerCard/_fallback.png"
+	},
+	Buddies = {
+		default = "Assets/Buddies/none.png"
 	}
 }
 
@@ -21,7 +24,8 @@ assetFolders = {
 	avatar = assetsFolder .. "Avatars/",
 	judgment = assetsFolder .. "Judgments/",
 	toasty = assetsFolder .. "Toasties/",
-	PlayerCard = assetsFolder .. "PlayerCard/"
+	PlayerCard = assetsFolder .. "PlayerCard/",
+	Buddies = assetsFolder .. "Buddies/"
 }
 
 assetsConfig = create_setting("assetsConfig", "assetsConfig.lua", defaultConfig, 1)

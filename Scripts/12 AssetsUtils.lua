@@ -57,6 +57,10 @@ function getCardPath()
 	return getAssetPath("PlayerCard")
 end
 
+function getBuddyPath()
+	return getAssetPath("Buddies")
+end
+
 -- returns the image path relative to the theme folder from the profileID.
 -- getAvatarPath should be used in the general case. this is really only needed for the profile select screen
 -- where the profile isn't loaded into a player slot yet.
@@ -128,4 +132,8 @@ end
 
 function getCard()
 	return getAsset("PlayerCard")
+end
+
+function getBuddy()
+	return getAsset("Buddies")
 end

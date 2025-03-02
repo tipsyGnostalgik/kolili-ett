@@ -8,13 +8,14 @@ t[#t+1] = Def.Sprite{
 		self:zoom(1)
 	end,
 	OnCommand=function(self)
-		self:zoom(1)
-		:FullScreen()
+		self:zoom(SCREEN_HEIGHT/1080)
+		:halign(0):valign(0)
+		:xy(0,0)
 		:diffusealpha(1)
-		:sleep(1)
-		:easeOut(0.4)
+		:sleep(0.5)
+		:easeOut(0.5)
 		:diffusealpha(0)
-		:zoom(20)
+		:zoom(3)
 		:y(300)
 		:x(10500)
 	end
@@ -28,7 +29,7 @@ t[#t+1] = Def.Quad{
 		self:diffusealpha(1)
 	end,
 	OnCommand=function(self)
-		self:sleep(0.8)
+		self:sleep(0.3)
 		self:easeOut(0.4)
 		self:diffusealpha(0)
 	end

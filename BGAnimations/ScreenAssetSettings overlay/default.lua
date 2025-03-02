@@ -7,7 +7,8 @@ local assetTypes = {
 	"toasty",
 	"avatar",
 	"judgment",
-	"PlayerCard"
+	"PlayerCard",
+	"Buddies"
 }
 
 local maxPage = 1
